@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="../data/ActivitiesPage/activities.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="dropdown"> <!-- -->
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Looking for Something? Here!
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                <li><a class="dropdown-item" href="activities.html">Looking for Fun?</a></li>
+            </ul>
+        </div>
+    </header>
+    <h1>Available Activities</h1>
+
+    <div>Categories</div>
+
+    <!-- Dropdown for selecting a category -->
+    <select name="cats" id="cats">
+        <option value="">Select a Category</option>
+        <option value="Adventures">Adventure</option>
+        <option value="Arts & Crafts">Arts & Crafts</option>
+        <option value="Museums">Museums</option>
+        <option value="Wine Tastings">Wine Tastings</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <br><br>
+
+    <div>Activity</div>
+    <!-- Dropdown for selecting an activity, initially empty -->
+    <select name="items" id="items">
+        <option value="">Select an Activity</option>
+    </select>
+    <br><br>
+
+    <div id="activity-details">
+        <h2>Activity Details</h2>
+        <p id="activity-description">Please select an activity to see the details.</p>
+    </div>
+
+    <div id="purchase-form" style="display: none;"> <!-- Initially hidden -->
+        <h3>Buy E-Ticket</h3>
+        <form id="ticket-form">
+            <label for="num-tickets">Number of Tickets: </label>
+            <input type="number" id="num-tickets" name="num-tickets" min="1" required>
+            <!-- Input for ticket quantity -->
+            <br><br>
+
+            <label for="credit-card">Credit Card Number: </label>
+            <input type="text" id="credit-card" name="credit-card" maxlength="16" required>
+            <!-- Input for credit card number -->
+            <br><br>
+
+            <label for="email">Email Address: </label>
+            <input type="email" id="email" name="email" required> <!-- Input for email address -->
+            <br><br>
+
+            <button type="submit">Purchase</button> <!-- Button to submit the purchase -->
+            <button type="reset">Reset</button> <!-- Button to reset the form fields -->
+        </form>
+        <p id="confirmation-message" style="margin-top: 10px; color: green;"></p>
+        <!-- Area to display the confirmation message -->
+    </div>
+
+    <script>
+        // Get references to important elements in the HTML
+        const itemsDrop = document.getElementById("items"); // Dropdown for activities
+        const actDes = document.getElementById("activity-description"); // Area for activity details
+        const purchaseForm = document.getElementById("purchase-form"); // Purchase form
+        const confirmationMessage = document.getElementById("confirmation-message"); // Confirmation message area
+
+        // Function that runs when a category is selected
+        function onCatChange(e) {
+            itemsDrop.innerHTML = "<option value=''>Select an Activity</option>"; // Reset activity dropdown
+            const value = e.target.value; // Get the selected category
+
+            if (!value) { // If no category is selected, exit the function
+                return;
+            }
+
+            // Filter the activities based on the selected category
+            const filteredActivities = activities.filter(activity => activity.category === value);
+
+            // Add each filtered activity to the activity dropdown
+            filteredActivities.forEach(activity => {
+                const option = document.createElement("option"); // Create a new option element
+                option.innerText = activity.name; // Set the text to the activity name
+                option.value = activity.id; // Set the value to the activity ID
+                itemsDrop.appendChild(option); // Add the option to the dropdown
+            });
+        };
+
+        // Function that runs when an activity is selected
+        function onActChange(e) {
+            const actId = e.target.value; // Get the selected activity ID
+
+            if (!actId) { // If no activity is selected, show the default message
+                actDes.innerText = "Please select an activity to see the details.";
+                return;
+            }
+
+            // Find the selected activity in the activities array
+            const selectedActivity = activities.find(activity => activity.id === actId);
+            if (selectedActivity) {
+                // Display the details of the selected activity
+                actDes.innerHTML = `
+                    <strong>${selectedActivity.name}</strong><br>
+                    <em>Location:</em> ${selectedActivity.location}<br>
+                    <em>Price:</em> $${selectedActivity.price.toFixed(2)}<br>
+                    <p>${selectedActivity.description}</p>
+                `;
+            }
+
+            // Show the purchase form if the activity price is more than $0.00
+            if (selectedActivity.price > 0) {
+                purchaseForm.style.display = "block"; // Show the form
+            } else {
+                purchaseForm.style.display = "none"; // Hide the form
+            }
+        };
+
+        // Handle the submission of the purchase form
+        document.getElementById("ticket-form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+
+            // Get the values from the form fields
+            const numTickets = document.getElementById("num-tickets").value; // Number of tickets
+            const creditCard = document.getElementById("credit-card").value; // Credit card number (should be validated in a real app)
+            const email = document.getElementById("email").value; // User's email
+            const selectedActivity = activities.find(activity => activity.id === itemsDrop.value); // Get the selected activity
+
+            if (selectedActivity) {
+                // Calculate the total amount for the tickets
+                const totalAmount = (selectedActivity.price * numTickets).toFixed(2);
+                // Display the confirmation message
+                confirmationMessage.innerText = `Your credit card has been charged $${totalAmount} for ${numTickets} tickets to ${selectedActivity.name}. A confirmation email has been sent to ${email}.`;
+            }
+        });
+
+        // Add event listeners to the dropdowns
+        const cats = document.getElementById("cats"); // Reference to category dropdown
+        cats.addEventListener("change", onCatChange); // Run onCatChange when the category changes
+        itemsDrop.addEventListener("change", onActChange); // Run onActChange when the activity changes
+    </script>
+</body>
+
+</html>
