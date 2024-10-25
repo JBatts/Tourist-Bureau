@@ -22,11 +22,11 @@ body {
     display: flex;
     gap: 10px;
     justify-content: center;
-    
+
 }
 
 .hike-pic {
-    width: 45%; 
+    width: 45%;
     height: 50vh;
     object-fit: cover;
 }
@@ -38,8 +38,8 @@ body {
 }
 
 .h_pics {
-   display: flex;
-   gap: 10px;
+    display: flex;
+    gap: 10px;
     justify-content: center;
 }
 

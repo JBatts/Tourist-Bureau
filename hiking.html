@@ -29,20 +29,20 @@
     </div>
 </header>
 
-<section class = "actForm">
-    <h2>Select a Hike</h2>
+<section class="actForm">
+    <h2>Select a Hike</h2> <!-- Heading for the hike selection section -->
     <br>
     <!-- Dropdown for selecting a hike -->
     <select name="hikes" id="hikes">
-        <option value="">Select one</option>
+        <option value="">Select one</option> <!-- Placeholder option prompting the user to select a hike -->
     </select>
     <br><br>
-    <div id="hike-details" style="display:none;">
-        <h3>Hike Details</h3>
-        <p id="hike-description"></p>
-        <div class="hike-images">
-            <img id="hike-image" src="default_hike_image.jpg" alt="Hike Image" class="hike-pic">
-            <img id="trail-map" src="default_trail_map.jpg" alt="Trail Map" class="hike-pic">
+    <div id="hike-details" style="display:none;"> <!-- Hidden by default; will display when a hike is selected -->
+        <h3>Hike Details</h3> <!-- Subheading for the details of the selected hike -->
+        <p id="hike-description"></p> <!-- Paragraph to display the description of the selected hike -->
+        <div class="hike-images"> <!-- Container for hike-related images -->
+            <img id="hike-image" src="default_hike_image.jpg" alt="Hike Image" class="hike-pic"> <!-- Image of the hike -->
+            <img id="trail-map" src="default_trail_map.jpg" alt="Trail Map" class="hike-pic"> <!-- Image of the trail map -->
         </div>
     </div>
 </section>
