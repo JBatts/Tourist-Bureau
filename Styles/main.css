@@ -1,0 +1,36 @@
+header {
+    text-align: center;
+    background-color: aliceblue;
+    padding: 2rem;
+    border: 50px white solid;
+    border-radius: 10rem;
+}
+
+body {
+    text-align: center;
+    background-color: white;
+}
+
+.actForm {
+    background-color: aliceblue;
+    padding: 2rem;
+    border-radius: 5rem;
+}
+
+
+.h_para {
+    margin-top: 1rem;
+    padding: 4rem;
+    background-color: aliceblue;
+}
+
+.h_pics {
+   display: flex;
+   gap: 10px;
+    justify-content: center;
+}
+
+.h_pics img {
+    width: 75vh;
+    height: 50vh;
+}
