@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", ()=> {
 
     // Get references to important elements in the HTML
     const itemsDrop = document.getElementById("items"); // Dropdown for activities

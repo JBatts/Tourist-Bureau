@@ -1,5 +1,5 @@
 // Wait until the DOM content is fully loaded before executing the script
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", ()=> {
     // Get references to the dropdown, details section, and image elements
     const hikeDropDown = document.getElementById("hikes");
     const hikeDetails = document.getElementById("hike-details");
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Add an event listener to handle changes in the dropdown selection
-    hikeDropDown.addEventListener("change", function() {
+    hikeDropDown.addEventListener("change", ()=> {
         // Find the selected hike based on the dropdown's value
         const selectedHike = hikes.find(hike => hike.id === hikeDropDown.value);
 
