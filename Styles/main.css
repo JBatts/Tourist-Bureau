@@ -15,8 +15,21 @@ body {
     background-color: aliceblue;
     padding: 2rem;
     border-radius: 5rem;
+    border: 50px white solid;
 }
 
+.hike-images {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    
+}
+
+.hike-pic {
+    width: 45%; /* Adjust as needed */
+    height: auto;
+    object-fit: cover;
+}
 
 .h_para {
     margin-top: 1rem;
