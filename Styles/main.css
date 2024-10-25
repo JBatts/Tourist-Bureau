@@ -26,8 +26,8 @@ body {
 }
 
 .hike-pic {
-    width: 45%; /* Adjust as needed */
-    height: auto;
+    width: 45%; 
+    height: 50vh;
     object-fit: cover;
 }
 
